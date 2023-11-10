@@ -1,12 +1,11 @@
 from typing import Optional
 from uuid import UUID
 
-from pydantic import BaseModel
-
 from common.enums.enums import Role
+from common.schemas.base import PydanticBase
 
 
-class UserBase(BaseModel):
+class UserBase(PydanticBase):
     name: Optional[str]
     email: Optional[str]
     role: Optional[Role]
