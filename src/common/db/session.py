@@ -1,3 +1,4 @@
+from redis import Redis
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
@@ -20,3 +21,8 @@ SessionLocal = async_sessionmaker(
 async def get_pg_session() -> AsyncSession:
     async with SessionLocal() as session:
         yield session
+
+
+redis_client = Redis(
+    host=settings.REDIS_HOST, port=settings.REDIS_PORT, decode_responses=True
+)
