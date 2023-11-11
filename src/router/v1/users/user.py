@@ -3,7 +3,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Path
 
-from models.users import User, user_repository
+from models.users import User
+from models.users.repository.user import user_repository
 from models.users.schemas import user
 from router.deps import PGSession
 
@@ -36,7 +37,8 @@ async def update_user(
         sid: UUID = Path(description="сид пользователя"),
 ):
     db_obj = await user_repository.get(db, sid)
-    db_obj = await user_repository.update(db, db_obj, updated_user.__dict__)
+    updated_obj = {k: v for k, v in updated_user.__dict__.items() if v is not None}
+    db_obj = await user_repository.update(db, db_obj, updated_obj)
     return db_obj
 
 
