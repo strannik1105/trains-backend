@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from common.schemas.base import PydanticBase
 from models.stations.schemas.station import Station
 
