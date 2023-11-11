@@ -5,8 +5,8 @@ from common.schemas.base import PydanticBase
 
 class StationBase(PydanticBase):
     name: Optional[str]
-    longitude: Optional[int]
-    latitude: Optional[int]
+    longitude: Optional[float]
+    latitude: Optional[float]
 
 
 class Station(StationBase):

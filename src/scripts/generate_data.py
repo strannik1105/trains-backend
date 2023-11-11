@@ -14,6 +14,11 @@ def convert_id_to_int(value: str) -> int:
     return int(value)
 
 
+def convert_to_float(value: str) -> float:
+    value = value.replace(',', '.')
+    return float(value)
+
+
 def generate_stations():
     conn = psycopg2.connect(
         f"host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT} "
@@ -27,11 +32,11 @@ def generate_stations():
         if (v['lat'] is None) or (v['lat'] == ''):
             lat = 'null'
         else:
-            lat = v['lat']
+            lat = convert_to_float(v['lat'])
         if (v['long'] is None) or (v['long'] == ''):
             long = 'null'
         else:
-            long = v['long']
+            long = convert_to_float(v['long'])
         query = (f"INSERT INTO stations.station (sid, name, latitude, longitude) "
                  f"VALUES ({convert_id_to_int(k)}, '{faker.name()}', {lat}, {long}) "
                  f"ON CONFLICT (sid) DO NOTHING;")
@@ -57,5 +62,5 @@ def generate_routes():
 
 
 if __name__ == "__main__":
-    # generate_stations()
+    generate_stations()
     generate_routes()
