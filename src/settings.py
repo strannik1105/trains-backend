@@ -19,7 +19,7 @@ POSTGRES_HOST: str = os.getenv("POSTGRES_HOST", "0.0.0.0")
 POSTGRES_PORT: int = int(os.getenv("POSTGRES_PORT", "5432"))
 
 REDIS_HOST: str = os.getenv("REDIS_HOST", "0.0.0.0")
-REDIS_PORT: int = int(os.getenv("REDIS_PORT", "5432"))
+REDIS_PORT: int = int(os.getenv("REDIS_PORT", "6379"))
 
 
 class CookiesSettings(BaseSettings):

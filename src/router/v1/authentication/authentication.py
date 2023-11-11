@@ -10,7 +10,7 @@ from common.db.session import redis_client
 from common.exceptions.error_codes import ErrorCodes
 from common.exceptions.exceptions import BackendException
 from common.schemas.messages import Msg, MsgLogin
-from models.users import user_repository
+from models.users.repository.user import user_repository
 from router import deps
 from router.v1.authentication.ext import user_agent_parser, remove_cookie
 from settings import cookies_settings
