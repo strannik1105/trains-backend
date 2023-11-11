@@ -1,23 +1,24 @@
-from typing import Optional
-from uuid import UUID
-
 from pydantic import BaseModel
+from pydantic.datetime_parse import date
 
-from common.enums.enums import Role
 from models.stations.schemas.station import Station
-from models.wagons.schemas.wagon import Wagon
+
+
+# from models.wagons.schemas.wagon import Wagon
 
 
 class TrainBase(BaseModel):
     sid: int
-    train_st_disl: Station
-    train_st_dest: Station
-    operation_data: str
+    name: str
+    description: str
+    operation_data: date
 
 
 class Train(TrainBase):
-    wagon: list[Wagon]
+    train_st_disl: Station
+    train_st_dest: Station
 
 
 class TrainCreate(TrainBase):
-    ...
+    train_st_disl_sid: int
+    train_st_dest_sid: int

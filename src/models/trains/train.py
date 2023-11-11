@@ -1,4 +1,4 @@
-from sqlalchemy import String, Column, ForeignKey, UUID, Integer, Date
+from sqlalchemy import String, Column, ForeignKey, Integer, Date
 from sqlalchemy.orm import mapped_column, relationship
 
 from common.db.base_model import BaseModel
@@ -17,6 +17,9 @@ class Train(BaseModel):
     train_st_disl_sid = mapped_column(ForeignKey(Station.sid))
     train_st_dest_sid = mapped_column(ForeignKey(Station.sid))
 
-    train_st_disl = relationship(Station, foreign_keys=[train_st_disl_sid], lazy='joined')
-    train_st_dest = relationship(Station, foreign_keys=[train_st_dest_sid], lazy='joined')
-    wagon = relationship(Station)
+    train_st_disl = relationship(
+        Station, foreign_keys=[train_st_disl_sid], lazy="joined"
+    )
+    train_st_dest = relationship(
+        Station, foreign_keys=[train_st_dest_sid], lazy="joined"
+    )
