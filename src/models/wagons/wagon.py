@@ -2,19 +2,23 @@ from sqlalchemy import String, Column, UUID, ForeignKey, Integer
 from sqlalchemy.orm import mapped_column, relationship
 
 from common.db.base_model import BaseModel
+from models.stations import Station
+from models.trains import Train
 
 WAGON_SCHEMA = "wagons"
 
 
 class Wagon(BaseModel):
     __table_args__ = {"schema": WAGON_SCHEMA, "comment": "Table with all wagons"}
+    sid = Column(Integer, primary_key=True)
 
-    name = Column(String, nullable=True)  # Не обязательное название
-    description = Column(String, nullable=True)  # Не обязательное описание
-    wagon_indx = Column(Integer, nullable=False)  # вагона поезда
-    wagon_st_disl = Column(UUID, ForeignKey('station.sid'))  # станция отправки вагона
-    wagon_st_dest = Column(UUID, ForeignKey('station.sid'))  # конечная станция вагона
-    train_indx = Column(Integer, ForeignKey('train.train_indx'))  # номер поезда текущего вагона
+    name = mapped_column(String)
+    description = mapped_column(String)
+    wagon_st_disl_sid = mapped_column(ForeignKey(Station.sid))
+    wagon_st_dest_sid = mapped_column(ForeignKey(Station.sid))
+    train_sid = mapped_column(ForeignKey(Train.sid))
 
-    train = relationship('Train', back_populates='wagon')
-    station = relationship('Station', back_populates='wagon')
+    wagon_st_disl = relationship(Station, foreign_keys=[wagon_st_disl_sid], lazy='joined')
+    wagon_st_dest = relationship(Station, foreign_keys=[wagon_st_dest_sid], lazy='joined')
+    train = relationship(Train, foreign_keys=[train_sid], lazy='joined')
+

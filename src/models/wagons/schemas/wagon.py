@@ -5,17 +5,19 @@ from uuid import UUID
 from pydantic import BaseModel
 
 from common.enums.enums import Role
-from models.trains.schemas.train import TrainBase
+from models.stations.schemas.station import Station
+from models.trains.schemas.train import TrainBase, Train
 
 
 class WagonBase(BaseModel):
-    wagon_indx: int
-    wagon_st_disl: uuid
-    wagon_st_dest: uuid
+    sid: int
+    wagon_st_disl: Station
+    wagon_st_dest: Station
+    train: Train
 
 
 class Wagon(WagonBase):
-    sid: UUID
+    ...
 
 
 class WagonCreate(WagonBase):

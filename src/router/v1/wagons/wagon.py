@@ -23,7 +23,7 @@ async def get_wagon(db: PGSession, sid: UUID = Path(description="сид ваго
 
 
 @router.post("/", response_model=wagon.Wagon)
-async def create_user(db: PGSession, new_wagon: wagon.WagonCreate):
+async def create_wagon(db: PGSession, new_wagon: wagon.WagonCreate):
     obj = Wagon(**new_wagon.__dict__)
     db_obj = await wagon_repository.create(db, obj, with_commit=True)
     return db_obj

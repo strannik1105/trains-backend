@@ -9,3 +9,5 @@ router.include_router(authentication.router, tags=["Аутентификация
 router.include_router(user.router, tags=["Пользователи"], prefix="/user")
 router.include_router(station.router, tags=["Станции"], prefix="/stations")
 router.include_router(route.router, tags=["Маршруты"], prefix="/routes")
+router.include_router(route.router, tags=["Поезда"], prefix="/trains")
+router.include_router(route.router, tags=["Вагоны"], prefix="/wagons")
