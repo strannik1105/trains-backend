@@ -1,6 +1,7 @@
 volumes:
   postgres-data:
   redis-data:
+  clickhouse-data:
 
 
 services:
@@ -23,3 +24,13 @@ services:
     restart: on-failure
     ports:
       - "6379:6379"
+
+  clickhouse:
+    container_name: clickhouse
+    image: clickhouse/clickhouse-server:22.1
+    env_file: .env
+    ports:
+      - "9000:9000"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    restart: on-failure

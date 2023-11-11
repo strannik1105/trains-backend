@@ -21,6 +21,18 @@ POSTGRES_PORT: int = int(os.getenv("POSTGRES_PORT", "5432"))
 REDIS_HOST: str = os.getenv("REDIS_HOST", "0.0.0.0")
 REDIS_PORT: int = int(os.getenv("REDIS_PORT", "6379"))
 
+CLICKHOUSE_DB: str = os.getenv("CLICKHOUSE_DB", "trains")
+CLICKHOUSE_USER: str = os.getenv("CLICKHOUSE_USER", "user")
+CLICKHOUSE_PASSWORD: str = os.getenv("CLICKHOUSE_PASSWORD", "password")
+CLICKHOUSE_HOST: str = os.getenv("CLICKHOUSE_HOST", "0.0.0.0")
+CLICKHOUSE_PORT: int = int(os.getenv("CLICKHOUSE_PORT", "9000"))
+
+RABBITMQ_HOST: str = os.getenv("RABBITMQ_HOST", "0.0.0.0")
+RABBITMQ_PORT: str = os.getenv("RABBITMQ_PORT", "5672")
+RABBITMQ_USER: str = os.getenv("RABBITMQ_USER", "guest")
+RABBITMQ_PASSWORD: str = os.getenv("RABBITMQ_PASSWORD", "guest")
+RABBITMQ_PARSER_EXCHANGE: str = os.getenv("RABBITMQ_PARSER_EXCHANGE", "parser_output_exchange")
+
 
 class CookiesSettings(BaseSettings):
     # Configure application to store and get JWT from cookies
