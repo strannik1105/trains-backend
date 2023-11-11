@@ -23,5 +23,5 @@ class Route(BaseModel):
     node2_sid = mapped_column(ForeignKey(Station.sid))
     length = mapped_column(Integer)
 
-    node1 = relationship(Station, foreign_keys=[node1_sid])
-    node2 = relationship(Station, foreign_keys=[node2_sid])
+    node1 = relationship(Station, foreign_keys=[node1_sid], lazy='joined')
+    node2 = relationship(Station, foreign_keys=[node2_sid], lazy='joined')
