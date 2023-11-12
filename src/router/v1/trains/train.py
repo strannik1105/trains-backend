@@ -5,15 +5,16 @@ from common.exceptions.exceptions import BackendException
 from models.trains.repository.train import train_repository
 from models.trains.schemas import train
 from models.trains.train import Train
-from router.deps import PGSession
+from router.deps import PGSession, CHSession
 
 router = APIRouter()
 
 
 @router.get("/")
-async def get_trains(db: PGSession):
-    db_objs = await train_repository.get_all(db)
-    return db_objs
+def get_trains(db: CHSession):
+    db_objs = train_repository.get_all_available_trains(db)
+    response = [i[0] for i in db_objs]
+    return response
 
 
 @router.get("/{sid}")
