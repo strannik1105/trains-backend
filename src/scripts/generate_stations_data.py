@@ -44,23 +44,6 @@ def generate_stations():
     conn.commit()
 
 
-def generate_routes():
-    conn = psycopg2.connect(
-        f"host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT} "
-        f"dbname={settings.POSTGRES_DB} user={settings.POSTGRES_USER} password={settings.POSTGRES_PASSWORD}")
-    conn.autocommit = True
-    cur = conn.cursor()
-    routes_meta = open("routes_meta.csv", newline='')
-    reader = csv.DictReader(routes_meta)
-    for row in reader:
-        query = (f"INSERT INTO stations.route (node1_sid, node2_sid, length) "
-                 f"VALUES ({convert_id_to_int(row['START_CODE'])}, {convert_id_to_int(row['END_CODE'])}, {convert_id_to_int(row['LEN'])});")
-        try:
-            cur.execute(query)
-        except ForeignKeyViolation as e:
-            print(e)
-
-
 def create_root_user():
     conn = psycopg2.connect(
         f"host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT} "
@@ -73,6 +56,4 @@ def create_root_user():
 
 
 if __name__ == "__main__":
-    create_root_user()
-    # generate_stations()
-    # generate_routes()
+    generate_stations()
