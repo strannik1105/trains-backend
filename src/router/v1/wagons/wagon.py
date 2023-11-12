@@ -17,13 +17,12 @@ async def get_wagons(db: PGSession):
     return db_objs
 
 
-@router.get("/{sid}", response_model=wagon.Wagon)
+"""@router.get("/{sid}", response_model=wagon.Wagon)
 async def get_wagon(db: PGSession, sid: int = Path(description="сид вагона")):
     db_obj = await wagon_repository.get(db, sid)
-    return db_obj
+    return db_obj"""
 
-
-@router.post("/", response_model=wagon.Wagon)
+"""@router.post("/", response_model=wagon.Wagon)
 async def create_wagon(db: PGSession, new_wagon: wagon.WagonCreate):
     train = await train_repository.get(db, sid=new_wagon.train_sid)
     if train is None:
@@ -42,7 +41,7 @@ async def update(
     db_obj = await wagon_repository.get(db, sid)
     updated_obj = {k: v for k, v in updated_obj.__dict__.items() if v is not None}
     db_obj = await wagon_repository.update(db, db_obj, updated_obj)
-    return db_obj
+    return db_obj"""
 
 
 @router.get("/{sid}/historical/by_train")

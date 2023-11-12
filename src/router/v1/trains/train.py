@@ -23,10 +23,10 @@ async def get_train(db: PGSession, sid: int = Path(description="сид поез�
     return db_obj
 
 
-@router.post("/")
+"""@router.post("/")
 async def create_train(db: PGSession, new_train: train.TrainCreate):
     obj = Train(**new_train.__dict__)
     db_obj = await train_repository.create(db, obj, with_commit=True)
     if db_obj is None:
         raise BackendException(ErrorCodes.incorrect_credentials)
-    return db_obj
+    return db_obj"""
