@@ -28,6 +28,7 @@ redis_client = Redis(
 )
 
 
+# TODO: need to made async
 def get_ch_connection() -> Client:
     clickhouse_client = Client(
         host=settings.CLICKHOUSE_HOST,
