@@ -1,5 +1,7 @@
 volumes:
   postgres-data:
+  redis-data:
+  clickhouse-data:
 
 
 services:
@@ -11,4 +13,32 @@ services:
     restart: always
     env_file: .env
     ports:
-      - "5432:5432"
+      - "15432:5432"
+
+  redis:
+    container_name: redis-tokens
+    image: redis/redis-stack:6.2.6-v9
+    env_file: .env
+    volumes:
+      - redis-data:/data
+    restart: on-failure
+    ports:
+      - "6379:6379"
+
+  clickhouse:
+    container_name: clickhouse
+    image: clickhouse/clickhouse-server:22.1
+    env_file: .env
+    ports:
+      - "9000:9000"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    restart: on-failure
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      python3 src/main.py
