@@ -3,9 +3,9 @@ from sqlalchemy.orm import mapped_column, relationship
 
 from common.db.base_model import BaseModel
 from models.stations import Station
-from models.trains import Train
+from models.trains.train import Train
 
-WAGON_SCHEMA = "wagons"
+WAGON_SCHEMA = "trains"
 
 
 class Wagon(BaseModel):
@@ -21,4 +21,3 @@ class Wagon(BaseModel):
     wagon_st_disl = relationship(Station, foreign_keys=[wagon_st_disl_sid], lazy='joined')
     wagon_st_dest = relationship(Station, foreign_keys=[wagon_st_dest_sid], lazy='joined')
     train = relationship(Train, foreign_keys=[train_sid], lazy='joined')
-

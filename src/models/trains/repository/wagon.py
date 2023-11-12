@@ -1,4 +1,4 @@
 from common.repository.repository import AbstractRepository
-from models.wagons import Wagon
+from models.trains.wagon import Wagon
 
 wagon_repository = AbstractRepository[Wagon](Wagon)

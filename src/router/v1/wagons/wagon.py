@@ -2,10 +2,10 @@ from fastapi import APIRouter, Path
 
 from common.exceptions.error_codes import ErrorCodes
 from common.exceptions.exceptions import BackendException
-from models.wagons.repository.repository import wagon_repository
+from models.trains.repository.wagon import wagon_repository
 
-from models.wagons.schemas import wagon
-from models.wagons.wagon import Wagon
+from models.trains.schemas import wagon
+from models.trains.wagon import Wagon
 from router.deps import PGSession
 
 router = APIRouter()
@@ -35,9 +35,9 @@ async def create_wagon(db: PGSession, new_wagon: wagon.WagonCreate):
 
 @router.put("/{sid}")
 async def update(
-    db: PGSession,
-    updated_obj: wagon.WagonUpdate,
-    sid: int = Path(description="сид"),
+        db: PGSession,
+        updated_obj: wagon.WagonUpdate,
+        sid: int = Path(description="сид"),
 ):
     db_obj = await wagon_repository.get(db, sid)
     updated_obj = {k: v for k, v in updated_obj.__dict__.items() if v is not None}
