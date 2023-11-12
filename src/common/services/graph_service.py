@@ -16,7 +16,10 @@ class GraphService:
 
     @classmethod
     def is_way_exist(cls, first_node: int, second_node: int) -> bool:
-        return networkx.has_path(cls._graph, first_node, second_node)
+        if first_node in cls._graph and second_node in cls._graph:
+            return networkx.has_path(cls._graph, first_node, second_node)
+
+        return False
 
     @classmethod
     def shortest_path(cls, first_node: int, second_node: int) -> list:
@@ -24,7 +27,7 @@ class GraphService:
 
     @classmethod
     def length_of_path(cls, first_node: int, second_node: int):
-        return networkx.shortest_path_length(cls._graph, first_node, second_node)
+        return networkx.dijkstra_path_length(cls._graph, first_node, second_node)
 
     @classmethod
     def all_shortest_paths(cls, first_node: int, second_node: int):
@@ -36,5 +39,5 @@ class GraphService:
 
     @classmethod
     def print_graph(cls):
-        networkx.draw(cls._graph)
+        networkx.draw(cls._graph, with_labels=True)
         plt.show()
