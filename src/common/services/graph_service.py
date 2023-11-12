@@ -23,6 +23,18 @@ class GraphService:
         return networkx.shortest_path(cls._graph, first_node, second_node)
 
     @classmethod
+    def length_of_path(cls, first_node: int, second_node: int):
+        return networkx.shortest_path_length(cls._graph, first_node, second_node)
+
+    @classmethod
+    def all_shortest_paths(cls, first_node: int, second_node: int):
+        return networkx.all_shortest_paths(cls._graph, first_node, second_node)
+
+    @classmethod
+    def all_simple_paths(cls, first_node: int, second_node: int):
+        return networkx.all_simple_paths(cls._graph, first_node, second_node)
+
+    @classmethod
     def print_graph(cls):
         networkx.draw(cls._graph)
         plt.show()
