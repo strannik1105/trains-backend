@@ -2,7 +2,7 @@ from fastapi import APIRouter, Path
 
 from common.exceptions.error_codes import ErrorCodes
 from common.exceptions.exceptions import BackendException
-from models.trains.repository.repository import train_repository
+from models.trains.repository.train import train_repository
 from models.trains.schemas import train
 from models.trains.train import Train
 from router.deps import PGSession

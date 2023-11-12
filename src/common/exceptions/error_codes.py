@@ -7,3 +7,4 @@ class ErrorCodes(Enum):
     """
 
     incorrect_credentials = (0, 401, "неверные учётные данные")
+    not_allow = (0, 403, "нет доступа")

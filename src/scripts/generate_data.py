@@ -61,6 +61,18 @@ def generate_routes():
             print(e)
 
 
+def create_root_user():
+    conn = psycopg2.connect(
+        f"host={settings.POSTGRES_HOST} port={settings.POSTGRES_PORT} "
+        f"dbname={settings.POSTGRES_DB} user={settings.POSTGRES_USER} password={settings.POSTGRES_PASSWORD}")
+    conn.autocommit = True
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO users.user (sid, name, email, password, role) VALUES (gen_random_uuid(), 'root', 'root@root.com', 'pass', 'SUPERUSER')"
+    )
+
+
 if __name__ == "__main__":
-    generate_stations()
-    generate_routes()
+    create_root_user()
+    # generate_stations()
+    # generate_routes()
