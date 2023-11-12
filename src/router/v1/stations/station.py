@@ -3,10 +3,12 @@ from typing import List
 from fastapi import APIRouter, Path
 
 from common.schemas.messages import Msg
+from models.trains.repository.train import train_repository
+from models.trains.repository.wagon import wagon_repository
 from models.users import User
 from models.stations.repository.station import station_repository
 from models.stations.schemas import station
-from router.deps import PGSession
+from router.deps import PGSession, CHSession
 
 router = APIRouter()
 
@@ -47,3 +49,31 @@ async def delete(db: PGSession, sid: int = Path(description="сид")):
     db_obj = await station_repository.get(db, sid)
     await station_repository.remove(db, db_obj)
     return {"msg": "success"}
+
+
+@router.get("/{sid}/wagons")
+async def get_wagons(db: CHSession, sid: int = Path(description="сид")):
+    db_objs = wagon_repository.get_wagons_by_station(db, station_id=sid)
+    response = [
+        {"wagon_id": i[0], "operdate": i[1], "train_id": i[2]} for i in db_objs
+    ]
+    return response
+
+
+@router.get("/{sid}/wagons/{train_sid}")
+async def get_wagons_on_train(db: CHSession, sid: int = Path(description="сид"),
+                              train_sid: str = Path(description="сид поезда")):
+    db_objs = wagon_repository.get_wagons_by_station_and_train(db, station_id=sid, train_sid=train_sid)
+    response = [
+        {"wagon_id": i[0], "operdate": i[1], "train_id": i[2]} for i in db_objs
+    ]
+    return response
+
+
+@router.get("/{sid}/trains")
+async def get_trains(db: CHSession, sid: int = Path(description="сид")):
+    db_objs = train_repository.get_wagons_by_station(db, station_id=sid)
+    response = [
+        {"train_id": i[0], "operdate": i[1]} for i in db_objs
+    ]
+    return response

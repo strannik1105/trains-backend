@@ -19,5 +19,15 @@ class WagonRepository(AbstractRepository[Wagon]):
             f"SELECT wagon_id, operdate, desl_id, dest_id, train_id FROM wagons_telemetry WHERE wagon_id = '{wagon_id}'")
         return objs
 
+    def get_wagons_by_station(self, db, station_id):
+        objs = db.execute(
+            f"SELECT DISTINCT wagon_id, operdate, train_id FROM wagons_telemetry WHERE desl_id = '{station_id}' ORDER BY operdate DESC")
+        return objs
+
+    def get_wagons_by_station_and_train(self, db, station_id, train_sid):
+        objs = db.execute(
+            f"SELECT DISTINCT wagon_id, operdate, train_id FROM wagons_telemetry WHERE desl_id = '{station_id}' AND train_id = '{train_sid}' ORDER BY operdate DESC")
+        return objs
+
 
 wagon_repository = WagonRepository(Wagon)
