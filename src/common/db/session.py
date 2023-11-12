@@ -1,6 +1,6 @@
 from redis import Redis
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-from sqlalchemy.orm import sessionmaker
+from clickhouse_driver import Client
 
 import settings
 
@@ -26,3 +26,15 @@ async def get_pg_session() -> AsyncSession:
 redis_client = Redis(
     host=settings.REDIS_HOST, port=settings.REDIS_PORT, decode_responses=True
 )
+
+
+def get_ch_connection() -> Client:
+    clickhouse_client = Client(
+        host=settings.CLICKHOUSE_HOST,
+        port=settings.CLICKHOUSE_PORT,
+        user=settings.CLICKHOUSE_USER,
+        password=settings.CLICKHOUSE_PASSWORD,
+        database=settings.CLICKHOUSE_DB,
+        # settings={"use_numpy": True},
+    )
+    return clickhouse_client
