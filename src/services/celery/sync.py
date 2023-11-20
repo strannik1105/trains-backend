@@ -6,10 +6,6 @@ import psycopg2
 from services.celery.celery_app import celery_app
 from celery.utils.log import get_task_logger
 
-"""
-Задание для отправки в Rabbit на обновление устройств
-routing key: opc/eldis/native
-"""
 
 logger = get_task_logger(__name__)
 
