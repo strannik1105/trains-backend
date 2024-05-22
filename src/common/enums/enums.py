@@ -1,7 +1,7 @@
-from enum import StrEnum, auto
+from enum import Enum
 
 
-class Role(StrEnum):
-    SUPERUSER = auto()
-    ADMIN = auto()
-    MEMBER = auto()
+class Role(Enum):
+    SUPERUSER = "SUPERUSER"
+    ADMIN = "ADMIN"
+    MEMBER = "MEMBER"
